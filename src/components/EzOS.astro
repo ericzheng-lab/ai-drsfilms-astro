@@ -1,0 +1,153 @@
+---
+// Six-department node diagram (CSS-only). Hub in centre, departments around.
+const departments = [
+  { id: 'brand',   label: 'Brand' },
+  { id: 'film',    label: 'Film' },
+  { id: 'career',  label: 'Career' },
+  { id: 'products',label: 'Products' },
+  { id: 'aifilm',  label: 'AI-Film' },
+  { id: 'system',  label: 'System' },
+];
+---
+<section class="section ezos" id="ez-os">
+  <div class="section__inner">
+    <p class="eyebrow reveal">Operating System</p>
+    <h2 class="section__title reveal">EZ-OS</h2>
+    <p class="section__sub reveal">I run production like software.</p>
+
+    <div class="ezos__layout">
+      <div class="ezos__copy">
+        <p class="ezos__body reveal">
+          A multi-agent operating system for a one-person studio.
+          <span class="amber">Six departments</span> (Brand · Film · Career · Products · AI-Film · System),
+          <span class="amber">four named agents</span>, dynamic subagents dispatched per task.
+          Replaced a local 8-agent Discord system.
+        </p>
+        <p class="ezos__body reveal">
+          The whole stack runs in the cloud — Hyperagent orchestration,
+          Cloudflare compute, Google Drive as the file brain.
+        </p>
+
+        <blockquote class="ezos__quote reveal">
+          The goal isn't automation. It's <em>leverage</em> —
+          compounding creative output without compounding headcount.
+        </blockquote>
+      </div>
+
+      <div class="ezos__diagram reveal" aria-hidden="true">
+        <svg viewBox="0 0 320 320" class="ezos__svg" role="img" aria-label="EZ-OS topology">
+          <defs>
+            <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#e3a868" stop-opacity="0.65" />
+              <stop offset="60%" stop-color="#e3a868" stop-opacity="0.10" />
+              <stop offset="100%" stop-color="#e3a868" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+
+          {departments.map((d, i) => {
+            const angle = (i / departments.length) * Math.PI * 2 - Math.PI / 2;
+            const r = 120;
+            const x = (160 + Math.cos(angle) * r).toFixed(2);
+            const y = (160 + Math.sin(angle) * r).toFixed(2);
+            return (
+              <>
+                <line x1="160" y1="160" x2={x} y2={y} class="edge" />
+                <circle cx={x} cy={y} r="5" class="node" />
+                <text
+                  x={x}
+                  y={y}
+                  dy={Math.sin(angle) > 0.1 ? 22 : (Math.sin(angle) < -0.1 ? -12 : 4)}
+                  dx={Math.cos(angle) > 0.5 ? 12 : (Math.cos(angle) < -0.5 ? -12 : 0)}
+                  text-anchor={Math.cos(angle) > 0.5 ? 'start' : (Math.cos(angle) < -0.5 ? 'end' : 'middle')}
+                  class="label"
+                >{d.label}</text>
+              </>
+            );
+          })}
+
+          <circle cx="160" cy="160" r="48" fill="url(#hubGlow)" />
+          <circle cx="160" cy="160" r="8" class="node node--hub" />
+          <text x="160" y="195" text-anchor="middle" class="label label--hub">EZ-OS</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ezos__layout {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: clamp(40px, 6vw, 96px);
+    align-items: center;
+  }
+  .ezos__copy { display: flex; flex-direction: column; gap: 22px; }
+  .ezos__body {
+    font-family: var(--font-ui);
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--text);
+    max-width: 56ch;
+  }
+  .ezos__quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(20px, 2.4vw, 28px);
+    line-height: 1.4;
+    color: var(--cream);
+    border-left: 1px solid var(--amber);
+    padding-left: 24px;
+    margin-top: 16px;
+    max-width: 38ch;
+  }
+  .ezos__quote em {
+    color: var(--amber);
+    font-style: italic;
+  }
+
+  .ezos__diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ezos__svg {
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+  }
+  .ezos__svg .edge {
+    stroke: var(--amber-d);
+    stroke-width: 0.6;
+    opacity: 0.55;
+  }
+  .ezos__svg .node {
+    fill: var(--amber);
+    stroke: var(--bg);
+    stroke-width: 1.5;
+  }
+  .ezos__svg .node--hub {
+    fill: var(--cream);
+  }
+  .ezos__svg .label {
+    font-family: var(--font-ui);
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    fill: var(--text);
+  }
+  .ezos__svg .label--hub {
+    fill: var(--amber);
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+  }
+
+  @media (max-width: 860px) {
+    .ezos__layout { grid-template-columns: 1fr; }
+    .ezos__diagram { order: -1; margin-bottom: 16px; }
+    .ezos__svg { max-width: 320px; }
+  }
+</style>

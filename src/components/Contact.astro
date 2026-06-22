@@ -1,0 +1,176 @@
+---
+---
+<section class="section section--alt contact" id="contact">
+  <div class="section__inner">
+    <p class="eyebrow reveal">Reach out</p>
+    <h2 class="section__title contact__title reveal">Let's build something.</h2>
+
+    <div class="contact__cols">
+      <div class="contact__col reveal">
+        <p class="contact__kicker">Hire me</p>
+        <p class="contact__lede">Film · Advertising · AI Production roles</p>
+
+        <ul class="contact__list">
+          <li>
+            <a href="mailto:eric.zheng@drsfilms.com" class="contact__link">
+              eric.zheng@drsfilms.com
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://linkedin.com/in/ericzheng"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact__link"
+            >
+              linkedin.com/in/ericzheng
+            </a>
+          </li>
+          <li class="contact__meta">Greater New York · U.S. Permanent Resident</li>
+        </ul>
+      </div>
+
+      <div class="contact__col reveal">
+        <p class="contact__kicker">Build with me</p>
+        <p class="contact__lede">AI tools · Production systems · Custom workflows</p>
+
+        <ul class="contact__list">
+          <li>
+            <a
+              href="https://ai.drsfilms.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact__link"
+            >
+              ai.drsfilms.com
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://drsfilms.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact__link"
+            >
+              drsfilms.com
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/ericzheng-lab"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact__link"
+            >
+              github.com/ericzheng-lab
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <footer class="footer reveal">
+      <p>&copy; 2026 Eric Zheng · DRS Films</p>
+    </footer>
+  </div>
+</section>
+
+<style>
+  .contact { padding-bottom: 80px; }
+
+  .contact__title {
+    font-style: italic;
+    font-weight: 400;
+    max-width: 14ch;
+  }
+
+  .contact__cols {
+    margin-top: 72px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--amber-faint);
+    border-bottom: 1px solid var(--amber-faint);
+  }
+  .contact__col {
+    padding: 48px clamp(20px, 3vw, 48px) 48px 0;
+    position: relative;
+  }
+  .contact__col + .contact__col {
+    padding-left: clamp(24px, 4vw, 56px);
+    padding-right: 0;
+    border-left: 1px solid var(--amber-faint);
+  }
+
+  .contact__kicker {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 14px;
+  }
+  .contact__lede {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(22px, 2.4vw, 30px);
+    line-height: 1.3;
+    color: var(--cream);
+    margin-bottom: 28px;
+    max-width: 24ch;
+  }
+
+  .contact__list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .contact__list li {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: var(--text);
+  }
+  .contact__link {
+    color: var(--cream);
+    border-bottom: 1px solid var(--amber-faint);
+    padding-bottom: 2px;
+    transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+  }
+  .contact__link:hover {
+    color: var(--amber);
+    border-bottom-color: var(--amber);
+  }
+  .contact__meta {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+
+  .footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule-soft);
+    font-family: var(--font-ui);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 720px) {
+    .contact__cols { grid-template-columns: 1fr; }
+    .contact__col {
+      padding: 36px 0;
+      border-bottom: 1px solid var(--amber-faint);
+    }
+    .contact__col + .contact__col {
+      padding-left: 0;
+      border-left: 0;
+    }
+    .contact__col:last-child { border-bottom: 0; }
+  }
+</style>

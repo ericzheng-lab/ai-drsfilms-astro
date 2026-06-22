@@ -1,0 +1,88 @@
+---
+const stack = [
+  {
+    label: 'AI Orchestration',
+    tools: ['Claude', 'Cursor', 'OpenSpec', 'Hyperagent'],
+  },
+  {
+    label: 'Video & Image',
+    tools: ['Runway', 'Higgsfield', 'Seedance', 'Midjourney', 'Flux', 'Kling', 'Veo'],
+  },
+  {
+    label: 'Audio',
+    tools: ['ElevenLabs', 'Suno'],
+  },
+  {
+    label: 'Build Stack',
+    tools: ['Astro', 'React', 'Cloudflare', 'Supabase', 'GitHub', 'Three.js', 'D1'],
+  },
+];
+---
+<section class="section section--alt stack" id="stack">
+  <div class="section__inner">
+    <p class="eyebrow reveal">Stack</p>
+    <h2 class="section__title reveal">How I Build</h2>
+
+    <div class="stack__rows">
+      {stack.map((row) => (
+        <div class="stack__row reveal">
+          <div class="stack__label">{row.label}</div>
+          <div class="stack__tools">
+            {row.tools.map((t, i) => (
+              <>
+                <span class="stack__tool">{t}</span>
+                {i < row.tools.length - 1 && <span class="stack__sep" aria-hidden="true">·</span>}
+              </>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .stack__rows {
+    margin-top: 24px;
+    border-top: 1px solid var(--rule);
+  }
+  .stack__row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: clamp(20px, 4vw, 48px);
+    padding: 28px 0;
+    border-bottom: 1px solid var(--rule-soft);
+    align-items: baseline;
+  }
+  .stack__label {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+  .stack__tools {
+    font-family: var(--font-ui);
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .stack__tool {
+    color: var(--cream);
+  }
+  .stack__sep {
+    color: var(--amber-d);
+    margin: 0 12px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 720px) {
+    .stack__row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 22px 0;
+    }
+    .stack__tools { font-size: 13.5px; }
+  }
+</style>

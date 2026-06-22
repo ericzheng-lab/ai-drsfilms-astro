@@ -1,0 +1,122 @@
+---
+const stats = [
+  {
+    num: '$8M+',
+    label: 'Commercial Portfolio',
+    sub: "Nike · Tencent · Riot · L'Oréal · BMW · miHoYo",
+  },
+  {
+    num: 'Sundance',
+    label: 'Grand Jury Nominee',
+    sub: 'Berlinale Panorama · Brief History of A Family',
+  },
+  {
+    num: '60+',
+    label: 'Countries Released',
+    sub: '$2.5M China · France · Denmark · Qatar co-production',
+  },
+];
+
+const clients = [
+  'Nike',
+  'Tencent',
+  'Riot Games',
+  "L'Oréal",
+  'BMW',
+  'miHoYo',
+  'Estée Lauder',
+  'Final Frontier',
+];
+---
+<section class="section track" id="track-record">
+  <div class="section__inner">
+    <p class="eyebrow reveal">Track Record</p>
+    <h2 class="section__title reveal">15 Years of Proof</h2>
+
+    <div class="track__stats">
+      {stats.map((s) => (
+        <article class="stat reveal">
+          <div class="stat__num">{s.num}</div>
+          <div class="stat__label">{s.label}</div>
+          <div class="stat__sub">{s.sub}</div>
+        </article>
+      ))}
+    </div>
+
+    <hr class="rule reveal" />
+
+    <div class="track__clients reveal">
+      <p class="track__clients-label">Selected Clients</p>
+      <p class="track__clients-list">
+        {clients.map((c, i) => (
+          <>
+            <span>{c}</span>
+            {i < clients.length - 1 && <span class="dot" aria-hidden="true"> · </span>}
+          </>
+        ))}
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .track { padding-top: calc(var(--section-pad) * 0.85); }
+
+  .track__stats {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(28px, 4vw, 56px);
+    border-top: 1px solid var(--rule);
+    padding-top: 56px;
+  }
+  .stat__num {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(48px, 5.5vw, 80px);
+    color: var(--amber);
+    line-height: 1;
+    letter-spacing: -0.005em;
+  }
+  .stat__label {
+    margin-top: 14px;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cream);
+  }
+  .stat__sub {
+    margin-top: 8px;
+    font-family: var(--font-ui);
+    font-size: 12.5px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .track__clients-label {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 16px;
+  }
+  .track__clients-list {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(18px, 2.2vw, 26px);
+    color: var(--cream);
+    max-width: none;
+    line-height: 1.6;
+  }
+  .track__clients-list .dot { color: var(--amber-d); }
+
+  @media (max-width: 720px) {
+    .track__stats { grid-template-columns: 1fr; gap: 32px; }
+    .stat { padding-bottom: 28px; border-bottom: 1px solid var(--rule-soft); }
+    .stat:last-child { border-bottom: 0; padding-bottom: 0; }
+  }
+</style>

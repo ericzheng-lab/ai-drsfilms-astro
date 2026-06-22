@@ -1,0 +1,117 @@
+---
+// Minimal fixed top navigation.
+// Transparent at rest, picks up a translucent panel on scroll (vanilla JS).
+---
+<header class="nav" id="topNav">
+  <div class="nav__inner">
+    <a href="#top" class="nav__brand" aria-label="Home — Eric Zheng">
+      <span class="nav__mark">EZ</span>
+      <span class="nav__dot" aria-hidden="true">·</span>
+      <span class="nav__site">ai.drsfilms.com</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Section navigation">
+      <a href="#track-record">Track</a>
+      <a href="#built">Built</a>
+      <a href="#films">Films</a>
+      <a href="#stack">Stack</a>
+      <a href="#ez-os">EZ-OS</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 100;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    transition: background 0.4s var(--ease), backdrop-filter 0.4s var(--ease), border-color 0.4s var(--ease);
+    border-bottom: 1px solid transparent;
+  }
+  .nav.is-scrolled {
+    background: rgba(12, 10, 8, 0.78);
+    backdrop-filter: saturate(140%) blur(12px);
+    -webkit-backdrop-filter: saturate(140%) blur(12px);
+    border-bottom-color: var(--rule-soft);
+  }
+  .nav__inner {
+    width: 100%;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .nav__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .nav__mark {
+    color: var(--amber);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+  }
+  .nav__dot { color: var(--text-dim); }
+  .nav__site { color: var(--text-dim); }
+
+  .nav__links {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 2.2vw, 28px);
+  }
+  .nav__links a {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    transition: color 0.25s var(--ease);
+    padding: 4px 0;
+    position: relative;
+  }
+  .nav__links a:hover { color: var(--amber); }
+
+  @media (max-width: 720px) {
+    .nav__site { display: none; }
+    .nav__links {
+      gap: 12px;
+      font-size: 10px;
+    }
+    .nav__links a { font-size: 10px; letter-spacing: 0.16em; }
+  }
+  @media (max-width: 520px) {
+    .nav__links a:nth-child(2),
+    .nav__links a:nth-child(5) { display: none; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const nav = document.getElementById('topNav');
+    if (!nav) return;
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          nav.classList.toggle('is-scrolled', window.scrollY > 32);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>

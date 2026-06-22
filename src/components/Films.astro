@@ -1,0 +1,150 @@
+---
+const films = [
+  {
+    title: 'Brief History of A Family',
+    titleAlt: '一个男人和他的儿子',
+    director: 'Lin Jianjie',
+    credentials: [
+      'Sundance Grand Jury Prize Nominee',
+      'Berlinale Panorama',
+    ],
+    facts: [
+      '$2.5M · China–France–Denmark–Qatar',
+      'Released in 60+ countries',
+      'Metascore 80 · Rotten Tomatoes 92%',
+    ],
+  },
+  {
+    title: 'This Timeworn Land',
+    titleAlt: '流俗地',
+    director: 'You Xing (尤行)',
+    credentials: [
+      'SIFF PROJECT 2026 Selected',
+    ],
+    facts: [
+      '$340K independent',
+      '$3.4M international co-production track',
+      'ttl.sentimentalargument.com',
+    ],
+  },
+];
+---
+<section class="section films" id="films">
+  <div class="section__inner">
+    <p class="eyebrow reveal">Producer credits</p>
+    <h2 class="section__title reveal">Films</h2>
+
+    <div class="films__grid">
+      {films.map((f) => (
+        <article class="film reveal">
+          <hr class="film__accent" />
+          <h3 class="film__title">{f.title}</h3>
+          <p class="film__alt">{f.titleAlt}</p>
+          <p class="film__dir">
+            <span class="film__dir-label">Directed by</span>
+            <span class="film__dir-name">{f.director}</span>
+          </p>
+
+          <ul class="film__creds">
+            {f.credentials.map((c) => <li>{c}</li>)}
+          </ul>
+
+          <ul class="film__facts">
+            {f.facts.map((c) => <li>{c}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .films__grid {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(36px, 5vw, 72px);
+  }
+
+  .film {
+    display: flex;
+    flex-direction: column;
+  }
+  .film__accent {
+    width: 64px;
+    height: 1px;
+    background: var(--amber);
+    border: 0;
+    margin: 0 0 28px 0;
+  }
+  .film__title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(30px, 3.6vw, 46px);
+    color: var(--cream);
+    line-height: 1.05;
+    letter-spacing: -0.005em;
+  }
+  .film__alt {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(16px, 1.6vw, 20px);
+    color: var(--text-dim);
+    margin-top: 6px;
+    letter-spacing: 0.04em;
+  }
+  .film__dir {
+    margin-top: 22px;
+    font-family: var(--font-ui);
+    font-size: 12px;
+    color: var(--text-dim);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .film__dir-label {
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+  .film__dir-name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--text);
+  }
+
+  .film__creds, .film__facts {
+    list-style: none;
+    margin-top: 28px;
+    padding: 0;
+  }
+  .film__creds li {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber);
+    padding: 8px 0;
+    border-top: 1px solid var(--amber-faint);
+  }
+  .film__creds li:last-child { border-bottom: 1px solid var(--amber-faint); }
+
+  .film__facts {
+    margin-top: 16px;
+  }
+  .film__facts li {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: var(--text);
+    padding: 4px 0;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 720px) {
+    .films__grid { grid-template-columns: 1fr; gap: 56px; }
+  }
+</style>

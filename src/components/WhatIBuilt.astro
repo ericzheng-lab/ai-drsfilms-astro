@@ -1,0 +1,113 @@
+---
+const items = [
+  {
+    name: 'EZ-OS',
+    type: 'Multi-Agent Production OS',
+    body: '4 named agents + dynamic subagents replacing a local 8-agent Discord system. Runs every department: brand, film, career, products.',
+  },
+  {
+    name: 'ttl-breakdown',
+    type: 'Script Breakdown Tool',
+    body: '245 scenes · 2,961 items digitized for 流俗地 / This Timeworn Land. Cloudflare D1 + Workers.',
+  },
+  {
+    name: 'AI Canvas Studio',
+    type: 'Video Generation Pipeline',
+    body: 'G0–G7 gated pipeline from script to screen. 5 AI-native shorts shipped in under 4 weeks.',
+  },
+  {
+    name: 'Film Budget Studio',
+    type: "Producer's Budget Tool",
+    body: 'React + Supabase. Built for the way producers actually think about money.',
+  },
+];
+---
+<section class="section section--alt built" id="built">
+  <div class="section__inner">
+    <p class="eyebrow reveal">Tools, not demos</p>
+    <h2 class="section__title reveal">What I Built</h2>
+    <p class="section__sub reveal">
+      Production tools that run on production logic — not demos.
+    </p>
+
+    <div class="built__grid">
+      {items.map((it, i) => (
+        <article class="card reveal" style={`--i:${i}`}>
+          <div class="card__head">
+            <span class="card__num">{String(i + 1).padStart(2, '0')}</span>
+            <span class="card__type">{it.type}</span>
+          </div>
+          <h3 class="card__name">{it.name}</h3>
+          <p class="card__body">{it.body}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .built__grid {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .card {
+    background: var(--bg-2);
+    padding: clamp(28px, 3.5vw, 48px);
+    transition: background 0.4s var(--ease), transform 0.6s var(--ease);
+    position: relative;
+    min-height: 240px;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover { background: var(--bg-3); }
+  .card:hover .card__name { color: var(--amber); }
+
+  .card__head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+  .card__num {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    color: var(--amber-d);
+  }
+  .card__type {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .card__name {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(26px, 3vw, 34px);
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 14px;
+    letter-spacing: -0.005em;
+    transition: color 0.35s var(--ease);
+  }
+  .card__body {
+    font-family: var(--font-ui);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text);
+    max-width: 44ch;
+  }
+
+  @media (max-width: 720px) {
+    .built__grid { grid-template-columns: 1fr; }
+    .card { min-height: 0; }
+  }
+</style>

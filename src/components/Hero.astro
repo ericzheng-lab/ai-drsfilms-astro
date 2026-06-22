@@ -1,0 +1,156 @@
+---
+// Hero — point-cloud morph, 5 forms (LENS · APERTURE · REEL · SIGNAL · NETWORK).
+// The Three.js logic lives in /public/hero-cloud.module.js (loaded via importmap
+// declared in Base.astro). This component only owns the DOM structure + styling.
+---
+<section class="hero" id="top">
+  <canvas class="hero__canvas" id="scene" aria-hidden="true"></canvas>
+
+  <div class="hud__copy">
+    <h1 class="hud__title">ERIC ZHENG</h1>
+    <p class="hud__sub">Film Producer · AI Builder · 15 Years</p>
+    <p class="hud__tagline">I produce films. I build AI systems. I connect both.</p>
+  </div>
+
+  <nav id="heroStates" aria-label="Hero states">
+    <button class="hero-state is-active" data-form="0" type="button">LENS</button>
+    <button class="hero-state" data-form="1" type="button">APERTURE</button>
+    <button class="hero-state" data-form="2" type="button">REEL</button>
+    <button class="hero-state" data-form="3" type="button">SIGNAL</button>
+    <button class="hero-state" data-form="4" type="button">NETWORK</button>
+  </nav>
+
+  <div id="scrollHint" aria-hidden="true">&#8595;&nbsp;&nbsp;scroll</div>
+</section>
+
+<script is:inline type="module" src="/hero-cloud.module.js"></script>
+
+<style>
+  .hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    min-height: 640px;
+    overflow: hidden;
+    background: #0c0a08;
+    isolation: isolate;
+  }
+  .hero__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* hud — lower-left title block */
+  .hud__copy {
+    position: absolute;
+    bottom: 15%;
+    left: 6%;
+    z-index: 10;
+    max-width: 540px;
+    --copy-bg-opacity: 0;
+    --copy-blur: 0px;
+    padding: 4px 0;
+    transition: opacity 0.6s var(--ease);
+  }
+  .hud__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 1.0;
+    color: #fff4dc;
+    letter-spacing: 0.08em;
+    margin: 0;
+  }
+  .hud__sub {
+    font-family: var(--font-ui);
+    font-weight: 400;
+    font-size: clamp(11px, 1.4vw, 14px);
+    color: #e3a868;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 12px;
+  }
+  .hud__tagline {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(14px, 1.8vw, 22px);
+    color: #c8b99a;
+    margin-top: 16px;
+    line-height: 1.5;
+    max-width: 36ch;
+  }
+
+  /* state switcher — lower-right vertical stack */
+  #heroStates {
+    position: absolute;
+    bottom: 15%;
+    right: 6%;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+  }
+  .hero-state {
+    background: transparent;
+    border: none;
+    color: #7a6e62;
+    font-family: var(--font-ui);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 4px 0;
+    transition: color 0.4s var(--ease), opacity 0.6s var(--ease) calc(var(--i, 0) * 80ms);
+    opacity: 0;
+    transform: translateX(8px);
+  }
+  .hero-state:hover { color: #c8b99a; }
+  .hero-state.is-active { color: #e3a868; }
+  .hero-state.is-active::before {
+    content: "—";
+    margin-right: 10px;
+    color: #e3a868;
+  }
+  #heroStates.is-ready .hero-state {
+    opacity: 1;
+    transform: none;
+  }
+  #heroStates.is-ready .hero-state:nth-child(1) { transition-delay: 0.0s; }
+  #heroStates.is-ready .hero-state:nth-child(2) { transition-delay: 0.08s; }
+  #heroStates.is-ready .hero-state:nth-child(3) { transition-delay: 0.16s; }
+  #heroStates.is-ready .hero-state:nth-child(4) { transition-delay: 0.24s; }
+  #heroStates.is-ready .hero-state:nth-child(5) { transition-delay: 0.32s; }
+
+  #scrollHint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #7a6e62;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    z-index: 10;
+    pointer-events: none;
+    transition: opacity 0.4s var(--ease);
+  }
+
+  @media (max-width: 720px) {
+    .hud__copy { bottom: 22%; left: 6%; right: 6%; }
+    #heroStates {
+      bottom: 12%;
+      right: 6%;
+      flex-direction: row;
+      gap: 14px;
+    }
+    .hero-state.is-active::before { display: none; }
+    #scrollHint { bottom: 20px; }
+  }
+</style>
