@@ -1,0 +1,559 @@
+/* ──────────────────────────────────────────────────────────────────
+   upgrade-motion.css
+   Premium motion layer for ai.drsfilms.com
+   Drop this after global.css. Overrides and extends .reveal.
+   ────────────────────────────────────────────────────────────────── */
+
+/* ── Shared stagger timing ───────────────────────────────────────── */
+/*
+   JS assigns --stagger (0-5) on each child; every variant reads it.
+   Base delay prevents elements from firing before the parent settles.
+*/
+:root {
+  --stagger-base: 0.08s;
+  --stagger-step: 0.11s;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   1. BASE REVEAL — overrides global.css default
+   Slightly tighter than the original 24px; the variants add nuance.
+   ══════════════════════════════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity  0.75s var(--ease),
+    transform 0.75s var(--ease);
+  transition-delay: calc(var(--stagger, 0) * var(--stagger-step) + var(--stagger-base));
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   2. VARIANT: TITLE  (.reveal--title)
+   Longer duration + mask-clip reveal for section headings.
+   Uses clip-path to wipe up instead of a raw opacity jump.
+   ══════════════════════════════════════════════════════════════════ */
+.reveal--title {
+  opacity: 0;
+  transform: translateY(32px);
+  clip-path: inset(0 0 100% 0);
+  transition:
+    opacity   1.1s var(--ease),
+    transform 1.1s var(--ease),
+    clip-path 1.1s var(--ease);
+  transition-delay: calc(var(--stagger, 0) * var(--stagger-step) + var(--stagger-base));
+}
+.reveal--title.is-visible {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 0% 0);
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   3. VARIANT: CARD  (.reveal--card)
+   Staggered + scale-from-slightly-smaller entrance.
+   ══════════════════════════════════════════════════════════════════ */
+.reveal--card {
+  opacity: 0;
+  transform: translateY(28px) scale(0.97);
+  transition:
+    opacity   0.85s var(--ease),
+    transform 0.85s var(--ease);
+  transition-delay: calc(var(--stagger, 0) * var(--stagger-step) + var(--stagger-base));
+}
+.reveal--card.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   4. VARIANT: RULE  (.reveal--rule)
+   HR expands from 0 width to full — no opacity involved.
+   ══════════════════════════════════════════════════════════════════ */
+.reveal--rule {
+  opacity: 1;          /* override base opacity:0 */
+  transform: none;     /* override base translateY */
+  width: 0;
+  transition: width 0.9s var(--ease);
+  transition-delay: calc(var(--stagger, 0) * var(--stagger-step) + var(--stagger-base));
+}
+.reveal--rule.is-visible {
+  width: 100%;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   5. VARIANT: STAT  (.reveal--stat)
+   Same as card but slightly longer; numbers count up via JS.
+   The .stat__num text will be swapped by the counter, so keep
+   the stat invisible until the observer fires.
+   ══════════════════════════════════════════════════════════════════ */
+.reveal--stat {
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  transition:
+    opacity   0.9s var(--ease),
+    transform 0.9s var(--ease);
+  transition-delay: calc(var(--stagger, 0) * var(--stagger-step) + var(--stagger-base));
+}
+.reveal--stat.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   6. VARIANT: AFFILIATION ROW  (.reveal--aff)
+   Each row slides in from the left with an x-offset, staggered.
+   Used on .stack__row and similar horizontal list rows.
+   ══════════════════════════════════════════════════════════════════ */
+.reveal--aff {
+  opacity: 0;
+  transform: translateX(-18px);
+  transition:
+    opacity   0.7s var(--ease),
+    transform 0.7s var(--ease);
+  transition-delay: calc(var(--stagger, 0) * var(--stagger-step) + var(--stagger-base));
+}
+.reveal--aff.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   7. CARD HOVER LIFT
+   Adds box-shadow depth + 2px rise; replaces bg-only hover.
+   Applied to .card (WhatIBuilt) and .film (Films) tiles.
+   ══════════════════════════════════════════════════════════════════ */
+.card {
+  transition:
+    background  0.35s var(--ease),
+    transform   0.35s var(--ease),
+    box-shadow  0.35s var(--ease);
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.55),
+    0 2px 6px  rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(227, 168, 104, 0.12);
+}
+
+/* Film tiles get the same treatment */
+.film {
+  transition:
+    transform  0.35s var(--ease),
+    box-shadow 0.35s var(--ease);
+}
+.film:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.50),
+    0 2px  8px  rgba(0, 0, 0, 0.30);
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   8. STAGGER UTILITY CLASSES
+   JS assigns --stagger via inline style; these cap the max value
+   so nothing waits longer than ~600ms past the base delay.
+   ══════════════════════════════════════════════════════════════════ */
+/* Optional: declare explicit --stagger values if you prefer class-driven stagger */
+.stagger-0 { --stagger: 0; }
+.stagger-1 { --stagger: 1; }
+.stagger-2 { --stagger: 2; }
+.stagger-3 { --stagger: 3; }
+.stagger-4 { --stagger: 4; }
+.stagger-5 { --stagger: 5; }
+
+
+/* ══════════════════════════════════════════════════════════════════
+   9. REDUCED MOTION — everything collapses to instant/none
+   ══════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal--title,
+  .reveal--card,
+  .reveal--rule,
+  .reveal--stat,
+  .reveal--aff {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    width: auto;      /* rule: skip the expand animation */
+    transition: none;
+    transition-delay: 0s;
+  }
+}
+/* ============================================================
+   upgrade-color.css — Cinematic depth & atmosphere upgrade
+   ai.drsfilms.com — Eric Zheng portfolio
+   Additive overrides only. No layout changes. No class renames.
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   1. UPDATED :root — enhanced color tokens
+   ---------------------------------------------------------- */
+:root {
+  /* New amber hierarchy */
+  --amber-bright: #f0bc7a;           /* hover / active highlight */
+  --amber-glow:   rgba(227, 168, 104, 0.22); /* card ambient hover glow */
+
+  /* Warmer section background alternative */
+  --bg-warm: #100e0b;
+
+  /* Film grain target opacity (consumed by body::after) */
+  --film-grain-opacity: 0.07;
+}
+
+
+/* ----------------------------------------------------------
+   2. FILM GRAIN ENHANCEMENT
+   Switch to soft-light blend mode, raise opacity, tighten the
+   SVG noise tile to 280 px so the grain reads as finer texture.
+   ---------------------------------------------------------- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+
+  /* Finer 280 px noise tile */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 280px 280px;
+
+  /* Soft-light is more film-authentic than overlay at this opacity */
+  opacity: var(--film-grain-opacity, 0.07);
+  mix-blend-mode: soft-light;
+}
+
+
+/* ----------------------------------------------------------
+   3. SECTION AMBIENT LIGHTING
+   A ::before pseudo on every section casts a barely-visible warm
+   spot from top-center — the impression of a light source (a
+   projector lamp) above each section.  Pointer-events: none so
+   it never blocks interaction.
+   ---------------------------------------------------------- */
+.section,
+.section--alt {
+  position: relative; /* ensure stacking context for ::before */
+  overflow: hidden;   /* contain the radial bleed */
+}
+
+.section::before,
+.section--alt::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  /* Warm spot at top-center: amber ~3-4 % opacity fading to transparent */
+  background: radial-gradient(
+    ellipse 80% 40% at 50% 0%,
+    rgba(227, 168, 104, 0.04) 0%,
+    transparent 70%
+  );
+}
+
+/* Alt sections get the same treatment but with a marginally cooler tint
+   so the two section types still feel spatially distinct */
+.section--alt::before {
+  background: radial-gradient(
+    ellipse 80% 40% at 50% 0%,
+    rgba(227, 168, 104, 0.03) 0%,
+    rgba(180, 150, 110, 0.02) 30%,
+    transparent 70%
+  );
+}
+
+/* Ensure direct children sit above the ambient layer */
+.section > *,
+.section--alt > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ----------------------------------------------------------
+   4. CARD AMBIENT HOVER GLOW
+   A soft, wide box-shadow mimics scattered projector light
+   hitting the face of the card.  The ::before pseudo adds a
+   top-left corner radial gradient — the "reflection" of that
+   light source on the card surface.
+   ---------------------------------------------------------- */
+.card {
+  position: relative;
+  overflow: hidden; /* contain the corner gradient pseudo */
+  transition:
+    box-shadow 0.4s var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+    transform   0.4s var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1));
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1));
+
+  /* Top-left projector-light corner reflection */
+  background: radial-gradient(
+    ellipse 60% 50% at 0% 0%,
+    rgba(240, 188, 122, 0.09) 0%,
+    transparent 70%
+  );
+}
+
+.card:hover {
+  box-shadow: 0 0 60px -20px rgba(227, 168, 104, 0.12);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* Ensure card content stays above the ambient pseudo */
+.card > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ----------------------------------------------------------
+   5. AMBER GRADIENT — utility class for hero headline
+   Apply .amber-gradient to any element (typically <h1> or a
+   <span> inside it) to get a warm luminance gradient on the text.
+   The -webkit- prefix is needed for Safari / older WebKit.
+   ---------------------------------------------------------- */
+.amber-gradient {
+  background: linear-gradient(
+    135deg,
+    #f0bc7a  0%,
+    #e3a868 50%,
+    #b07a42 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  /* Fallback for browsers that don't support background-clip: text */
+  color: #e3a868;
+}
+
+
+/* ----------------------------------------------------------
+   6. RULE LINE ENHANCEMENT
+   Replace solid amber-at-18% lines with a left→centre→right
+   gradient that fades out at both edges, giving a soft-glow
+   candle-flame feel rather than a mechanical line.
+   Targets <hr> elements and elements using the --rule variable
+   as a border.
+   ---------------------------------------------------------- */
+
+/* Horizontal rule elements */
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(227, 168, 104, 0.18) 20%,
+    rgba(227, 168, 104, 0.28) 50%,
+    rgba(227, 168, 104, 0.18) 80%,
+    transparent 100%
+  );
+  margin-block: 1.5em;
+}
+
+/* Class-based rule dividers (common pattern in portfolio sites) */
+.rule,
+.divider,
+[class*="rule"],
+[class*="divider"] {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(227, 168, 104, 0.18) 20%,
+    rgba(227, 168, 104, 0.28) 50%,
+    rgba(227, 168, 104, 0.18) 80%,
+    transparent 100%
+  );
+}
+
+/* Border-top rules: override inline border-color with a
+   gradient via background + border: none technique */
+.rule--top {
+  border-top: none;
+  padding-top: 1px; /* preserve spacing */
+  background-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(227, 168, 104, 0.18) 20%,
+    rgba(227, 168, 104, 0.28) 50%,
+    rgba(227, 168, 104, 0.18) 80%,
+    transparent 100%
+  );
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: top left;
+}
+/*
+ * upgrade-typography.css
+ * High-end editorial typography overrides for ai.drsfilms.com
+ * Eric Zheng — Film Producer + AI Builder
+ *
+ * Apply after the main stylesheet. All selectors are written to out-specificate
+ * existing rules without needing !important.
+ */
+
+/* ─────────────────────────────────────────────
+   1. GLOBAL CORMORANT REFINEMENTS
+   Ligatures, kerning, and optical rendering on
+   every element that uses Cormorant Garamond.
+   ───────────────────────────────────────────── */
+
+.section__title,
+.section__sub,
+.hud__title,
+.stat__num,
+.aifilm__num,
+.film__title,
+.ezos__quote,
+.contact__headline {
+  font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* ─────────────────────────────────────────────
+   2. HUD / HERO NAME
+   Raw Cormorant now gets proper optical rendering.
+   ───────────────────────────────────────────── */
+
+.hud__title {
+  font-feature-settings: "liga" 1, "kern" 1;
+  letter-spacing: -0.02em;
+}
+
+/* ─────────────────────────────────────────────
+   3. TRACK RECORD STATS
+   Numbers are the jaw-drop moment — make them
+   enormous. Tight tracking at display scale.
+   ───────────────────────────────────────────── */
+
+.stat__num {
+  font-size: clamp(72px, 8vw, 120px);
+  letter-spacing: -0.03em;
+  font-weight: 400;
+}
+
+/* ─────────────────────────────────────────────
+   4. AI FILMS BACKGROUND NUMBERS
+   Turn the placeholder numbering into an
+   intentional visual statement — nearly fills
+   the poster area vertically.
+   ───────────────────────────────────────────── */
+
+.aifilm__num {
+  font-size: clamp(80px, 12vw, 160px);
+  letter-spacing: -0.04em;
+}
+
+/* ─────────────────────────────────────────────
+   5. EZOS QUOTE
+   Philosophical closer — biggest interior text
+   block. Wider border signals weight of thought.
+   ───────────────────────────────────────────── */
+
+.ezos__quote {
+  font-size: clamp(26px, 3.2vw, 40px);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.65;
+  letter-spacing: 0.01em;
+  border-left-width: 2px;
+}
+
+/* ─────────────────────────────────────────────
+   6. FILM TITLES
+   Sundance / Berlinale credits deserve presence.
+   Chinese alt-title stays smaller; give it room.
+   ───────────────────────────────────────────── */
+
+.film__title {
+  font-size: clamp(36px, 4.2vw, 56px);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.film__title--alt,
+.film__title-alt,
+.film__alt-title {
+  font-size: clamp(15px, 1.8vw, 20px);
+  display: block;
+  margin-top: 0.35em;
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+}
+
+/* ─────────────────────────────────────────────
+   7. EYEBROW ELEVATION
+   Subtle amber glow lifts section markers from
+   labels into intentional design punctuation.
+   ───────────────────────────────────────────── */
+
+.eyebrow {
+  text-shadow: 0 0 20px rgba(227, 168, 104, 0.4);
+}
+
+/* ─────────────────────────────────────────────
+   8. BODY TEXT WARMTH
+   Fractionally warmer and higher-contrast than
+   the current muddy #c8b99a on dark screens.
+   ───────────────────────────────────────────── */
+
+:root {
+  --text: #d0bfa6;
+}
+
+/* ─────────────────────────────────────────────
+   9. CONTACT SECTION HEADLINE
+   The parting statement. Heavier weight, larger
+   scale — it should land hard.
+   ───────────────────────────────────────────── */
+
+.contact__headline {
+  font-size: clamp(44px, 6.5vw, 84px);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+/* ─────────────────────────────────────────────
+   10. SECTION TITLE REFINEMENT
+   Ensure every section title inherits the
+   full optical rendering stack already applied
+   via the grouped rule at the top, plus slightly
+   tighter tracking at display sizes.
+   ───────────────────────────────────────────── */
+
+.section__title {
+  letter-spacing: -0.02em;
+}

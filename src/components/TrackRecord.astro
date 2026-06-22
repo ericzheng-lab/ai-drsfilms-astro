@@ -1,50 +1,24 @@
 ---
 const stats = [
-  {
-    num: '60+',
-    label: 'Countries Released',
-    sub: '$2.5M China · France · Denmark · Qatar co-production',
-  },
-  {
-    num: '$8M+',
-    label: 'Commercial Portfolio',
-    sub: "Nike · Tencent · Riot · L'Oréal · BMW · miHoYo",
-  },
-  {
-    num: 'Sundance',
-    label: 'Grand Jury Nominee',
-    sub: 'Berlinale Panorama · Brief History of A Family',
-  },
+  { num: '60+',      label: 'Countries Released',   sub: '$2.5M China · France · Denmark · Qatar co-production' },
+  { num: '$8M+',     label: 'Commercial Portfolio',  sub: "Nike · Tencent · Riot · L'Oréal · BMW · miHoYo" },
+  { num: 'Sundance', label: 'Grand Jury Nominee',    sub: 'Berlinale Panorama · Brief History of A Family' },
 ];
-
-const clients = ['Nike', 'Tencent', 'Riot Games', "L'Oréal", 'BMW', 'miHoYo', 'Estée Lauder', 'Final Frontier'];
-
+const clients = ['Nike','Tencent','Riot Games',"L'Oréal",'BMW','miHoYo','Estée Lauder','Final Frontier'];
 const affiliations = [
-  {
-    name: 'Hyperagent',
-    role: 'Founding 500',
-    note: 'First 500 power users on the platform.',
-  },
-  {
-    name: 'Gold House',
-    role: 'Member',
-    note: null,
-  },
-  {
-    name: 'Wonder Studios',
-    role: 'Community',
-    note: null,
-  },
+  { name: 'Hyperagent', role: 'Founding 500', note: 'First 500 power users on the platform.' },
+  { name: 'Gold House',     role: 'Member',      note: null },
+  { name: 'Wonder Studios', role: 'Community',   note: null },
 ];
 ---
 <section class="section track" id="track-record">
   <div class="section__inner">
     <p class="eyebrow reveal">Track Record</p>
-    <h2 class="section__title reveal">Fifteen Years</h2>
+    <h2 class="section__title reveal reveal--title">Fifteen Years</h2>
 
     <div class="track__stats">
-      {stats.map((s) => (
-        <article class="stat reveal">
+      {stats.map((s, i) => (
+        <article class="stat reveal reveal--stat" style={`--stagger:${i}`}>
           <div class="stat__num">{s.num}</div>
           <div class="stat__label">{s.label}</div>
           <div class="stat__sub">{s.sub}</div>
@@ -52,7 +26,7 @@ const affiliations = [
       ))}
     </div>
 
-    <hr class="rule reveal" />
+    <hr class="rule reveal reveal--rule" />
 
     <div class="track__clients reveal">
       <p class="track__clients-label">Selected Clients</p>
@@ -66,13 +40,13 @@ const affiliations = [
       </p>
     </div>
 
-    <hr class="rule reveal" />
+    <hr class="rule reveal reveal--rule" />
 
     <div class="affiliations reveal">
       <p class="affiliations__label">Affiliations</p>
       <ul class="affiliations__list">
-        {affiliations.map((a) => (
-          <li class="aff">
+        {affiliations.map((a, i) => (
+          <li class="aff reveal reveal--aff" style={`--stagger:${i}`}>
             <span class="aff__name">{a.name}</span>
             <span class="aff__sep" aria-hidden="true">—</span>
             <span class="aff__role">{a.role}</span>
@@ -119,7 +93,6 @@ const affiliations = [
     color: var(--text-dim);
     line-height: 1.5;
   }
-
   .track__clients-label {
     font-family: var(--font-ui);
     font-size: 11px;
@@ -134,12 +107,10 @@ const affiliations = [
     font-weight: 400;
     font-size: clamp(18px, 2.2vw, 26px);
     color: var(--cream);
-    max-width: none;
     line-height: 1.6;
   }
   .track__clients-list .dot { color: var(--amber-d); }
 
-  /* ── Affiliations ── */
   .affiliations__label {
     font-family: var(--font-ui);
     font-size: 11px;
@@ -171,11 +142,7 @@ const affiliations = [
     color: var(--cream);
     line-height: 1;
   }
-  .aff__sep {
-    color: var(--amber-d);
-    font-family: var(--font-ui);
-    font-size: 13px;
-  }
+  .aff__sep { color: var(--amber-d); font-family: var(--font-ui); font-size: 13px; }
   .aff__role {
     font-family: var(--font-ui);
     font-size: 10px;

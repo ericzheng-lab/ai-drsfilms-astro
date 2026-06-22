@@ -11,12 +11,12 @@ const films = [
 <section class="section aifilms" id="ai-films">
   <div class="section__inner">
     <p class="eyebrow reveal">Five films · Four weeks</p>
-    <h2 class="section__title reveal">AI Films</h2>
+    <h2 class="section__title reveal reveal--title">AI Films</h2>
     <p class="section__sub reveal">Native-AI shorts produced inside the G0–G7 pipeline.</p>
 
     <div class="aifilms__grid">
       {films.map((f) => (
-        <article class="aifilm reveal" style={`--accent:${f.accent}`}>
+        <article class="aifilm reveal reveal--card" style={`--accent:${f.accent}`}>
           <div class="aifilm__poster" aria-hidden="true">
             <span class="aifilm__num">{f.num}</span>
           </div>

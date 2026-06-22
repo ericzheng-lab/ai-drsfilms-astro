@@ -38,11 +38,11 @@ const items = [
 <section class="section section--alt built" id="built">
   <div class="section__inner">
     <p class="eyebrow reveal">Tools, not demos</p>
-    <h2 class="section__title reveal">What I Built</h2>
+    <h2 class="section__title reveal reveal--title">What I Built</h2>
 
     <div class="built__grid">
       {items.map((it) => (
-        <article class="card reveal" data-url={it.url || ''}>
+        <article class="card reveal reveal--card" data-url={it.url || ''}>
           <div class="card__head">
             <span class="card__num">{it.num}</span>
             <span class="card__type">{it.type}</span>
