@@ -1,32 +1,42 @@
 ---
 const stack = [
   {
-    label: 'AI Orchestration',
-    tools: ['Claude', 'Cursor', 'OpenSpec', 'Hyperagent'],
+    phase: 'Develop',
+    purpose: 'Script breakdown · treatment · look bible',
+    tools: ['Claude', 'Cursor', 'OpenSpec', 'Midjourney'],
   },
   {
-    label: 'Video & Image',
-    tools: ['Runway', 'Higgsfield', 'Seedance', 'Midjourney', 'Flux', 'Kling', 'Veo'],
+    phase: 'Pre-Vis',
+    purpose: 'Storyboarding · shot design · reference',
+    tools: ['Flux', 'Midjourney', 'Higgsfield'],
   },
   {
-    label: 'Audio',
+    phase: 'Generate',
+    purpose: 'Motion · sequences · iterations',
+    tools: ['Runway', 'Kling', 'Veo', 'Seedance'],
+  },
+  {
+    phase: 'Finish',
+    purpose: 'VO · score · audio',
     tools: ['ElevenLabs', 'Suno'],
   },
   {
-    label: 'Build Stack',
-    tools: ['Astro', 'React', 'Cloudflare', 'Supabase', 'GitHub', 'Three.js', 'D1'],
+    phase: 'Orchestrate',
+    purpose: 'Agents · build · ship',
+    tools: ['Hyperagent', 'Astro', 'React', 'Cloudflare', 'D1', 'Three.js'],
   },
 ];
 ---
 <section class="section section--alt stack" id="stack">
   <div class="section__inner">
-    <p class="eyebrow reveal">Stack</p>
-    <h2 class="section__title reveal">How I Build</h2>
+    <p class="eyebrow reveal">The Toolkit</p>
+    <h2 class="section__title reveal">A Producer's Stack</h2>
 
     <div class="stack__rows">
       {stack.map((row) => (
         <div class="stack__row reveal">
-          <div class="stack__label">{row.label}</div>
+          <div class="stack__phase">{row.phase}</div>
+          <div class="stack__purpose">{row.purpose}</div>
           <div class="stack__tools">
             {row.tools.map((t, i) => (
               <>
@@ -48,13 +58,13 @@ const stack = [
   }
   .stack__row {
     display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: clamp(20px, 4vw, 48px);
+    grid-template-columns: 130px 1fr 1.2fr;
+    gap: clamp(20px, 3.5vw, 48px);
     padding: 28px 0;
     border-bottom: 1px solid var(--rule-soft);
     align-items: baseline;
   }
-  .stack__label {
+  .stack__phase {
     font-family: var(--font-ui);
     font-size: 10px;
     font-weight: 600;
@@ -62,27 +72,50 @@ const stack = [
     text-transform: uppercase;
     color: var(--amber);
   }
+  .stack__purpose {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(14px, 1.5vw, 17px);
+    color: var(--text);
+    line-height: 1.4;
+  }
   .stack__tools {
     font-family: var(--font-ui);
-    font-size: 14px;
+    font-size: 13.5px;
     color: var(--text);
     line-height: 1.7;
   }
-  .stack__tool {
-    color: var(--cream);
-  }
+  .stack__tool { color: var(--cream); }
   .stack__sep {
     color: var(--amber-d);
-    margin: 0 12px;
-    opacity: 0.7;
+    margin: 0 10px;
+    opacity: 0.65;
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 860px) {
+    .stack__row {
+      grid-template-columns: 100px 1fr;
+      grid-template-rows: auto auto;
+      gap: 8px 20px;
+    }
+    .stack__purpose {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .stack__tools {
+      grid-column: 1 / -1;
+      font-size: 13px;
+      padding-top: 4px;
+    }
+  }
+
+  @media (max-width: 520px) {
     .stack__row {
       grid-template-columns: 1fr;
-      gap: 8px;
+      gap: 6px;
       padding: 22px 0;
     }
-    .stack__tools { font-size: 13.5px; }
+    .stack__purpose { grid-column: 1; grid-row: auto; }
+    .stack__tools { padding-top: 0; }
   }
 </style>

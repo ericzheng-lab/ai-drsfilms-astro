@@ -32,14 +32,6 @@ const items = [
     url: 'https://ttl.sentimentalargument.com',
     tag: 'D1 · Workers · Live',
   },
-  {
-    num: '05',
-    name: 'EZ-OS',
-    type: 'Multi-Agent Production OS',
-    body: '4 named agents + dynamic subagents replacing a local 8-agent Discord system. Runs every department: brand, film, career, products. Built on Hyperagent.',
-    url: null,
-    tag: 'Hyperagent · 4 Agents',
-  },
 ];
 ---
 
@@ -47,9 +39,6 @@ const items = [
   <div class="section__inner">
     <p class="eyebrow reveal">Tools, not demos</p>
     <h2 class="section__title reveal">What I Built</h2>
-    <p class="section__sub reveal">
-      Production tools that run on production logic.
-    </p>
 
     <div class="built__grid">
       {items.map((it) => (
@@ -103,7 +92,6 @@ const items = [
 <div id="demo-overlay" class="demo-overlay" hidden></div>
 
 <style>
-  /* ── grid ── */
   .built__grid {
     margin-top: 48px;
     display: grid;
@@ -112,12 +100,7 @@ const items = [
     background: var(--rule);
     border: 1px solid var(--rule);
   }
-  /* last card if odd — span full width */
-  .built__grid .card:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-  }
 
-  /* ── card ── */
   .card {
     background: var(--bg-2);
     padding: clamp(28px, 3.5vw, 48px);
@@ -205,7 +188,7 @@ const items = [
     border-color: var(--amber);
   }
 
-  /* ── modal ── */
+  /* modal */
   .demo-overlay {
     position: fixed;
     inset: 0;
@@ -243,11 +226,7 @@ const items = [
     text-transform: uppercase;
     color: var(--amber);
   }
-  .demo-modal__actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
+  .demo-modal__actions { display: flex; align-items: center; gap: 16px; }
   .demo-modal__open {
     font-family: var(--font-ui);
     font-size: 11px;
@@ -268,13 +247,7 @@ const items = [
     transition: color 0.2s;
   }
   .demo-modal__close:hover { color: var(--cream); }
-
-  .demo-modal__frame {
-    flex: 1;
-    width: 100%;
-    border: none;
-    background: #fff;
-  }
+  .demo-modal__frame { flex: 1; width: 100%; border: none; background: #fff; }
   .demo-modal__blocked {
     flex: 1;
     display: flex;
@@ -287,10 +260,8 @@ const items = [
   .demo-modal__blocked[hidden] { display: none; }
   .demo-modal__blocked a { color: var(--amber); }
 
-  /* ── responsive ── */
   @media (max-width: 720px) {
     .built__grid { grid-template-columns: 1fr; }
-    .built__grid .card:last-child:nth-child(odd) { grid-column: 1; }
     .demo-modal { inset: 0; }
   }
 </style>
@@ -310,42 +281,22 @@ const items = [
     titleEl.textContent = title;
     linkEl.href = url;
     blockedLink.href = url;
-
     frame.removeAttribute('hidden');
     blocked.hidden = true;
-
-    // detect X-Frame-Options block via load timeout
-    let loadTimer = setTimeout(() => {
-      // If the iframe fires load with empty contentDocument it was blocked
-    }, 3000);
-
     frame.onload = function() {
-      clearTimeout(loadTimer);
       try {
-        // If cross-origin and not blocked, this won't throw
-        // If blocked, Chrome shows an error page but still fires 'load'
         const loc = frame.contentWindow.location.href;
-        if (!loc || loc === 'about:blank') {
-          showBlocked();
-        }
-      } catch(e) {
-        // cross-origin: normal, assume loaded fine
-      }
+        if (!loc || loc === 'about:blank') showBlocked();
+      } catch(e) {}
     };
     frame.onerror = showBlocked;
-
     frame.src = url;
     modal.hidden = false;
     overlay.hidden = false;
     document.body.style.overflow = 'hidden';
     closeBtn.focus();
   }
-
-  function showBlocked() {
-    frame.hidden = true;
-    blocked.hidden = false;
-  }
-
+  function showBlocked() { frame.hidden = true; blocked.hidden = false; }
   function closeDemo() {
     modal.hidden = true;
     overlay.hidden = true;
@@ -354,19 +305,13 @@ const items = [
     blocked.hidden = true;
     document.body.style.overflow = '';
   }
-
-  // Wire demo buttons
   document.querySelectorAll('.card__demo').forEach(btn => {
     btn.addEventListener('click', () => {
-      const url   = btn.dataset.url;
-      const title = btn.dataset.title;
-      if (url) openDemo(url, title);
+      if (btn.dataset.url) openDemo(btn.dataset.url, btn.dataset.title);
     });
   });
-
   closeBtn.addEventListener('click', closeDemo);
   overlay.addEventListener('click', closeDemo);
-
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !modal.hidden) closeDemo();
   });

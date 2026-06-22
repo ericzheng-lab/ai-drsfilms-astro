@@ -3,8 +3,9 @@ import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
 import TrackRecord from '../components/TrackRecord.astro';
-import WhatIBuilt from '../components/WhatIBuilt.astro';
+import AiFilms from '../components/AiFilms.astro';
 import Films from '../components/Films.astro';
+import WhatIBuilt from '../components/WhatIBuilt.astro';
 import ToolStack from '../components/ToolStack.astro';
 import EzOS from '../components/EzOS.astro';
 import Contact from '../components/Contact.astro';
@@ -14,7 +15,7 @@ import Contact from '../components/Contact.astro';
     <title>Eric Zheng — Film Producer · AI Builder</title>
     <meta
       name="description"
-      content="Film producer with Sundance and Berlinale credits who builds AI production systems. 15 years. $8M+ campaigns. I connect both worlds."
+      content="Film producer with Sundance and Berlinale credits who builds AI production systems. 15 years. $8M+ campaigns."
     />
     <meta property="og:title" content="Eric Zheng — Film Producer · AI Builder" />
     <meta
@@ -39,15 +40,15 @@ import Contact from '../components/Contact.astro';
   <main>
     <Hero />
     <TrackRecord />
-    <WhatIBuilt />
+    <AiFilms />
     <Films />
+    <WhatIBuilt />
     <ToolStack />
     <EzOS />
     <Contact />
   </main>
 
   <script is:inline>
-    // Reveal-on-scroll: opacity + translateY into view, vanilla IntersectionObserver.
     (function () {
       if (!('IntersectionObserver' in window)) {
         document.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-visible'));

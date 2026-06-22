@@ -1,6 +1,11 @@
 ---
 const stats = [
   {
+    num: '60+',
+    label: 'Countries Released',
+    sub: '$2.5M China · France · Denmark · Qatar co-production',
+  },
+  {
     num: '$8M+',
     label: 'Commercial Portfolio',
     sub: "Nike · Tencent · Riot · L'Oréal · BMW · miHoYo",
@@ -10,28 +15,32 @@ const stats = [
     label: 'Grand Jury Nominee',
     sub: 'Berlinale Panorama · Brief History of A Family',
   },
-  {
-    num: '60+',
-    label: 'Countries Released',
-    sub: '$2.5M China · France · Denmark · Qatar co-production',
-  },
 ];
 
-const clients = [
-  'Nike',
-  'Tencent',
-  'Riot Games',
-  "L'Oréal",
-  'BMW',
-  'miHoYo',
-  'Estée Lauder',
-  'Final Frontier',
+const clients = ['Nike', 'Tencent', 'Riot Games', "L'Oréal", 'BMW', 'miHoYo', 'Estée Lauder', 'Final Frontier'];
+
+const affiliations = [
+  {
+    name: 'Hyperagent',
+    role: 'Founding 500',
+    note: 'First 500 power users on the platform.',
+  },
+  {
+    name: 'Gold House',
+    role: 'Member',
+    note: null,
+  },
+  {
+    name: 'Wonder Studios',
+    role: 'Community',
+    note: null,
+  },
 ];
 ---
 <section class="section track" id="track-record">
   <div class="section__inner">
     <p class="eyebrow reveal">Track Record</p>
-    <h2 class="section__title reveal">15 Years of Proof</h2>
+    <h2 class="section__title reveal">Fifteen Years</h2>
 
     <div class="track__stats">
       {stats.map((s) => (
@@ -55,6 +64,22 @@ const clients = [
           </>
         ))}
       </p>
+    </div>
+
+    <hr class="rule reveal" />
+
+    <div class="affiliations reveal">
+      <p class="affiliations__label">Affiliations</p>
+      <ul class="affiliations__list">
+        {affiliations.map((a) => (
+          <li class="aff">
+            <span class="aff__name">{a.name}</span>
+            <span class="aff__sep" aria-hidden="true">—</span>
+            <span class="aff__role">{a.role}</span>
+            {a.note && <span class="aff__note">{a.note}</span>}
+          </li>
+        ))}
+      </ul>
     </div>
   </div>
 </section>
@@ -114,9 +139,64 @@ const clients = [
   }
   .track__clients-list .dot { color: var(--amber-d); }
 
+  /* ── Affiliations ── */
+  .affiliations__label {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 20px;
+  }
+  .affiliations__list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(20px, 3vw, 40px);
+  }
+  .aff {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(227, 168, 104, 0.18);
+  }
+  .aff__name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(18px, 2vw, 22px);
+    color: var(--cream);
+    line-height: 1;
+  }
+  .aff__sep {
+    color: var(--amber-d);
+    font-family: var(--font-ui);
+    font-size: 13px;
+  }
+  .aff__role {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+  .aff__note {
+    flex-basis: 100%;
+    font-family: var(--font-ui);
+    font-size: 11.5px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin-top: 2px;
+  }
+
   @media (max-width: 720px) {
     .track__stats { grid-template-columns: 1fr; gap: 32px; }
     .stat { padding-bottom: 28px; border-bottom: 1px solid var(--rule-soft); }
     .stat:last-child { border-bottom: 0; padding-bottom: 0; }
+    .affiliations__list { grid-template-columns: 1fr; gap: 18px; }
   }
 </style>

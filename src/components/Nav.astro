@@ -1,6 +1,4 @@
 ---
-// Minimal fixed top navigation.
-// Transparent at rest, picks up a translucent panel on scroll (vanilla JS).
 ---
 <header class="nav" id="topNav">
   <div class="nav__inner">
@@ -12,9 +10,10 @@
 
     <nav class="nav__links" aria-label="Section navigation">
       <a href="#track-record">Track</a>
-      <a href="#built">Built</a>
+      <a href="#ai-films">AI Films</a>
       <a href="#films">Films</a>
-      <a href="#stack">Stack</a>
+      <a href="#built">Built</a>
+      <a href="#stack">Toolkit</a>
       <a href="#ez-os">EZ-OS</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -57,18 +56,14 @@
     letter-spacing: 0.22em;
     text-transform: uppercase;
   }
-  .nav__mark {
-    color: var(--amber);
-    font-weight: 600;
-    letter-spacing: 0.18em;
-  }
-  .nav__dot { color: var(--text-dim); }
+  .nav__mark { color: var(--amber); font-weight: 600; letter-spacing: 0.18em; }
+  .nav__dot  { color: var(--text-dim); }
   .nav__site { color: var(--text-dim); }
 
   .nav__links {
     display: flex;
     align-items: center;
-    gap: clamp(14px, 2.2vw, 28px);
+    gap: clamp(12px, 1.8vw, 24px);
   }
   .nav__links a {
     font-family: var(--font-ui);
@@ -79,21 +74,19 @@
     color: var(--text-dim);
     transition: color 0.25s var(--ease);
     padding: 4px 0;
-    position: relative;
   }
   .nav__links a:hover { color: var(--amber); }
 
   @media (max-width: 720px) {
     .nav__site { display: none; }
-    .nav__links {
-      gap: 12px;
-      font-size: 10px;
-    }
-    .nav__links a { font-size: 10px; letter-spacing: 0.16em; }
+    .nav__links { gap: 10px; }
+    .nav__links a { font-size: 10px; letter-spacing: 0.14em; }
   }
   @media (max-width: 520px) {
-    .nav__links a:nth-child(2),
-    .nav__links a:nth-child(5) { display: none; }
+    /* Keep: AI Films, Films, Built, Contact — hide Track, Toolkit, EZ-OS */
+    .nav__links a:nth-child(1),
+    .nav__links a:nth-child(5),
+    .nav__links a:nth-child(6) { display: none; }
   }
 </style>
 

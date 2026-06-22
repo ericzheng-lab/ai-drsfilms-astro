@@ -1,0 +1,125 @@
+---
+const films = [
+  { num: '01', accent: 'hsl(38,72%,56%)', tags: ['Midjourney', 'Runway', 'Suno'] },
+  { num: '02', accent: 'hsl(28,65%,52%)', tags: ['Flux', 'Higgsfield', 'ElevenLabs'] },
+  { num: '03', accent: 'hsl(48,60%,54%)', tags: ['Kling', 'Seedance', 'Suno'] },
+  { num: '04', accent: 'hsl(18,62%,50%)', tags: ['Runway', 'Veo', 'ElevenLabs'] },
+  { num: '05', accent: 'hsl(55,58%,52%)', tags: ['Midjourney', 'Flux', 'Kling'] },
+];
+---
+
+<section class="section aifilms" id="ai-films">
+  <div class="section__inner">
+    <p class="eyebrow reveal">Five films · Four weeks</p>
+    <h2 class="section__title reveal">AI Films</h2>
+    <p class="section__sub reveal">Native-AI shorts produced inside the G0–G7 pipeline.</p>
+
+    <div class="aifilms__grid">
+      {films.map((f) => (
+        <article class="aifilm reveal" style={`--accent:${f.accent}`}>
+          <div class="aifilm__poster" aria-hidden="true">
+            <span class="aifilm__num">{f.num}</span>
+          </div>
+          <div class="aifilm__meta">
+            <p class="aifilm__tags">{f.tags.join(' · ')}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <p class="aifilms__note reveal">Thumbnails and titles updating. <a href="https://video-canvas.pages.dev" target="_blank" rel="noopener noreferrer">View pipeline ↗</a></p>
+  </div>
+</section>
+
+<style>
+  .aifilms__grid {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .aifilm {
+    background: var(--bg-2);
+    display: flex;
+    flex-direction: column;
+    transition: background 0.3s var(--ease);
+  }
+  .aifilm:hover { background: var(--bg-3, #1a1714); }
+
+  .aifilm__poster {
+    aspect-ratio: 4 / 5;
+    background:
+      radial-gradient(110% 75% at 35% 25%, var(--accent), transparent 58%),
+      linear-gradient(180deg, #161310 0%, var(--bg) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+  }
+  .aifilm__poster::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E") center/200px;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  .aifilm__num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(64px, 7vw, 108px);
+    color: var(--cream);
+    letter-spacing: -0.025em;
+    opacity: 0.88;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+  }
+
+  .aifilm__meta {
+    padding: 16px 18px 20px;
+  }
+  .aifilm__tags {
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    color: var(--text-dim);
+    letter-spacing: 0.12em;
+    line-height: 1.6;
+  }
+
+  .aifilms__note {
+    margin-top: 28px;
+    font-family: var(--font-ui);
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+  }
+  .aifilms__note a {
+    color: var(--amber-d);
+    transition: color 0.2s;
+  }
+  .aifilms__note a:hover { color: var(--amber); }
+
+  @media (max-width: 860px) {
+    .aifilms__grid {
+      grid-template-columns: repeat(5, 72%);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .aifilm { scroll-snap-align: start; }
+  }
+
+  @media (max-width: 520px) {
+    .aifilms__grid {
+      grid-template-columns: repeat(5, 88%);
+    }
+  }
+</style>
