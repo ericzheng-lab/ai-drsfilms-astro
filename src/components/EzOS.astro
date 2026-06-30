@@ -8,7 +8,7 @@ const departments = [
   { id: 'system',   label: 'System' },
 ];
 ---
-<section class="section ezos" id="ez-os">
+<section class="section ezos" id="ez-os" data-num="06">
   <div class="section__inner">
     <p class="eyebrow reveal">Operating System</p>
     <h2 class="section__title reveal reveal--title">EZ-OS</h2>
@@ -33,40 +33,16 @@ const departments = [
       </div>
 
       <div class="ezos__diagram reveal" aria-hidden="true">
-        <svg viewBox="0 0 320 320" class="ezos__svg" role="img" aria-label="EZ-OS topology">
-          <defs>
-            <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#e3a868" stop-opacity="0.65" />
-              <stop offset="60%" stop-color="#e3a868" stop-opacity="0.10" />
-              <stop offset="100%" stop-color="#e3a868" stop-opacity="0" />
-            </radialGradient>
-          </defs>
-
-          {departments.map((d, i) => {
-            const angle = (i / departments.length) * Math.PI * 2 - Math.PI / 2;
-            const r = 120;
-            const x = (160 + Math.cos(angle) * r).toFixed(2);
-            const y = (160 + Math.sin(angle) * r).toFixed(2);
-            return (
-              <>
-                <line x1="160" y1="160" x2={x} y2={y} class="edge" />
-                <circle cx={x} cy={y} r="5" class="node" />
-                <text
-                  x={x}
-                  y={y}
-                  dy={Math.sin(angle) > 0.1 ? 22 : (Math.sin(angle) < -0.1 ? -12 : 4)}
-                  dx={Math.cos(angle) > 0.5 ? 12 : (Math.cos(angle) < -0.5 ? -12 : 0)}
-                  text-anchor={Math.cos(angle) > 0.5 ? 'start' : (Math.cos(angle) < -0.5 ? 'end' : 'middle')}
-                  class="label"
-                >{d.label}</text>
-              </>
-            );
-          })}
-
-          <circle cx="160" cy="160" r="48" fill="url(#hubGlow)" />
-          <circle cx="160" cy="160" r="8" class="node node--hub" />
-          <text x="160" y="195" text-anchor="middle" class="label label--hub">EZ-OS</text>
-        </svg>
+        <video
+          class="ezos__video"
+          src="/media/hero-ezos.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          aria-hidden="true"
+        ></video>
       </div>
     </div>
   </div>
@@ -95,55 +71,31 @@ const departments = [
     font-size: clamp(20px, 2.4vw, 28px);
     line-height: 1.4;
     color: var(--cream);
-    border-left: 1px solid var(--amber);
+    border-left: 2px solid var(--amber);
     padding-left: 24px;
     margin-top: 16px;
     max-width: 38ch;
   }
-  .ezos__quote em {
-    color: var(--amber);
-    font-style: italic;
-  }
+  .ezos__quote em { color: var(--amber); font-style: italic; }
 
   .ezos__diagram {
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+    background: #050810;
   }
-  .ezos__svg {
+  .ezos__video {
     width: 100%;
-    max-width: 380px;
     height: auto;
-  }
-  .ezos__svg .edge {
-    stroke: var(--amber-d);
-    stroke-width: 0.6;
-    opacity: 0.55;
-  }
-  .ezos__svg .node {
-    fill: var(--amber);
-    stroke: var(--bg);
-    stroke-width: 1.5;
-  }
-  .ezos__svg .node--hub { fill: var(--cream); }
-  .ezos__svg .label {
-    font-family: var(--font-ui);
-    font-size: 9.5px;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    fill: var(--text);
-  }
-  .ezos__svg .label--hub {
-    fill: var(--amber);
-    font-weight: 600;
-    font-size: 10px;
-    letter-spacing: 0.28em;
+    display: block;
+    object-fit: cover;
   }
 
   @media (max-width: 860px) {
     .ezos__layout { grid-template-columns: 1fr; }
     .ezos__diagram { order: -1; margin-bottom: 16px; }
-    .ezos__svg { max-width: 320px; }
   }
 </style>

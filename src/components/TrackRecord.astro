@@ -4,14 +4,14 @@ const stats = [
   { num: '$8M+',     label: 'Commercial Portfolio',  sub: "Nike · Tencent · Riot · L'Oréal · BMW · miHoYo" },
   { num: 'Sundance', label: 'Grand Jury Nominee',    sub: 'Berlinale Panorama · Brief History of A Family' },
 ];
-const clients = ['Nike','Tencent','Riot Games',"L'Oréal",'BMW','miHoYo','Estée Lauder','Final Frontier'];
+const clients = ['Nike','Tencent','Riot Games',"L\'Oréal",'BMW','miHoYo','Estée Lauder','Final Frontier'];
 const affiliations = [
   { name: 'Hyperagent', role: 'Founding 500', note: 'First 500 power users on the platform.' },
   { name: 'Gold House',     role: 'Member',      note: null },
   { name: 'Wonder Studios', role: 'Community',   note: null },
 ];
 ---
-<section class="section track" id="track-record">
+<section class="section track" id="track-record" data-num="01">
   <div class="section__inner">
     <p class="eyebrow reveal">Track Record</p>
     <h2 class="section__title reveal reveal--title">Fifteen Years</h2>
@@ -24,6 +24,24 @@ const affiliations = [
           <div class="stat__sub">{s.sub}</div>
         </article>
       ))}
+    </div>
+
+    <!-- International collaboration footprint video -->
+    <div class="track__video reveal">
+      <video
+        class="track__video-el"
+        src="/media/hero-map.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        aria-hidden="true"
+        preload="metadata"
+      ></video>
+      <div class="track__video-caption">
+        <span>Produced across cities</span>
+        <span>Copenhagen · Paris · Madrid · Beijing · Shanghai · New York · Los Angeles · Buenos Aires</span>
+      </div>
     </div>
 
     <hr class="rule reveal reveal--rule" />
@@ -93,6 +111,44 @@ const affiliations = [
     color: var(--text-dim);
     line-height: 1.5;
   }
+
+  /* Video embed */
+  .track__video {
+    margin-top: 56px;
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+    background: #050708;
+  }
+  .track__video-el {
+    width: 100%;
+    display: block;
+    max-height: 480px;
+    object-fit: cover;
+  }
+  .track__video-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 24px;
+    background: linear-gradient(to top, rgba(5,7,8,0.85), transparent);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .track__video-caption span {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .track__video-caption span:first-child {
+    color: var(--amber);
+    font-size: 9px;
+  }
+
   .track__clients-label {
     font-family: var(--font-ui);
     font-size: 11px;
@@ -165,5 +221,6 @@ const affiliations = [
     .stat { padding-bottom: 28px; border-bottom: 1px solid var(--rule-soft); }
     .stat:last-child { border-bottom: 0; padding-bottom: 0; }
     .affiliations__list { grid-template-columns: 1fr; gap: 18px; }
+    .track__video-el { max-height: 280px; }
   }
 </style>

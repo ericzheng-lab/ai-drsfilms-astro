@@ -1,0 +1,39 @@
+/* Editorial section numerals — Apartamento / Cereal magazine register.
+   Counter-driven fraction notation (01 / 06) sits as an enormous typographic
+   watermark in the top-right gutter of each numbered section. */
+
+main { counter-reset: section; }
+
+main > section {
+  position: relative;
+  isolation: isolate;
+}
+
+main > section:not(#top):not(#contact) {
+  counter-increment: section;
+}
+
+main > section:not(#top):not(#contact)::before {
+  content: counter(section, decimal-leading-zero) "  / 06";
+  position: absolute;
+  top: clamp(24px, 4vw, 56px);
+  right: clamp(24px, 5vw, 72px);
+  font-family: "Cormorant Garamond", "EB Garamond", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(120px, 18vw, 240px);
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  opacity: 0.07;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  white-space: nowrap;
+  font-feature-settings: "lnum" 1, "tnum" 0;
+}
+
+main > section > * {
+  position: relative;
+  z-index: 1;
+}
