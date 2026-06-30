@@ -1,0 +1,73 @@
+/* deep2.css — EZ-OS + Contact aliveness layer */
+
+/* Reduced motion: disable everything tilt/scramble below */
+@media (prefers-reduced-motion: reduce) {
+  .ezos__svg, .ezos__layout, .contact__col, .contact__link { transition: none !important; transform: none !important; }
+  .scroll-progress { display: none; }
+}
+
+/* 1. EZ-OS — Cursor parallax tilt */
+#ez-os .ezos__svg {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+#ez-os .ezos__layout {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+#ez-os .ezos__svg.near-cursor {
+  filter: drop-shadow(0 0 18px rgba(227, 168, 104, 0.22)) drop-shadow(0 0 6px rgba(255, 244, 220, 0.1));
+}
+
+/* 2. EZ-OS — Node hover */
+.ezos__svg .node { pointer-events: all; cursor: pointer; transition: transform 150ms ease, filter 200ms ease; transform-box: fill-box; transform-origin: center; }
+.ezos__svg .node:hover, .ezos__svg .node.is-hot { transform: scale(1.8); filter: drop-shadow(0 0 6px rgba(227, 168, 104, 0.7)); }
+.ezos__svg .edge { transition: stroke-opacity 200ms ease, stroke-width 200ms ease; }
+.ezos__svg.edges-hot .edge { stroke-opacity: 0.9 !important; stroke-width: 1.2 !important; }
+.ezos__svg .label { transition: opacity 200ms ease, font-size 200ms ease, fill 200ms ease; }
+.ezos__svg .label.label-hot { opacity: 1 !important; fill: #fff4dc; font-size: 1.05em; }
+
+/* 3. Contact — Column temperature shift */
+.contact__col { transition: box-shadow 0.5s ease; position: relative; }
+.contact__col:first-child:hover {
+  box-shadow: inset 6px 0 60px -10px rgba(227, 168, 104, 0.18), inset 0 0 40px -20px rgba(227, 168, 104, 0.08);
+}
+.contact__col:last-child:hover {
+  box-shadow: inset -6px 0 60px -10px rgba(127, 181, 200, 0.18), inset 0 0 40px -20px rgba(127, 181, 200, 0.08);
+}
+.contact__col .contact__kicker { transition: text-shadow 0.4s ease, color 0.4s ease; }
+.contact__col:first-child:hover .contact__kicker { text-shadow: 0 0 12px rgba(227, 168, 104, 0.55), 0 0 2px rgba(227, 168, 104, 0.4); }
+.contact__col:last-child:hover .contact__kicker { text-shadow: 0 0 12px rgba(127, 181, 200, 0.55), 0 0 2px rgba(127, 181, 200, 0.4); }
+
+/* 4. Contact — Link scramble cue */
+.contact__link { transition: color 0.3s ease, letter-spacing 0.3s ease; }
+.contact__link.is-scrambling { letter-spacing: 0.04em; }
+.contact__col:first-child .contact__link:hover { color: #e3a868; }
+.contact__col:last-child .contact__link:hover { color: #7fb5c8; }
+
+/* 5. Section title scramble — keep monospace feel during scramble */
+.section__title.is-scrambling { font-variant-ligatures: none; }
+
+/* BONUS: Scroll progress line */
+.scroll-progress {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 2px;
+  height: 100vh;
+  background: linear-gradient(to bottom, #e3a868, #7fb5c8);
+  z-index: 998;
+  transform-origin: top;
+  transform: scaleY(0);
+  will-change: transform;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Coarse pointer: disable tilt parallax + near-cursor glow */
+@media (pointer: coarse) {
+  #ez-os .ezos__svg, #ez-os .ezos__layout { transform: none !important; }
+  #ez-os .ezos__svg.near-cursor { filter: none; }
+}
