@@ -13,30 +13,16 @@ import Contact from '../components/Contact.astro';
 <Base>
   <Fragment slot="head">
     <title>Eric Zheng — Film Producer · AI Builder</title>
-    <meta
-      name="description"
-      content="Film producer with Sundance and Berlinale credits who builds AI production systems. 15 years. $8M+ campaigns."
-    />
+    <meta name="description" content="Film producer with Sundance and Berlinale credits who builds AI production systems. 15 years. $8M+ campaigns." />
     <meta property="og:title" content="Eric Zheng — Film Producer · AI Builder" />
-    <meta
-      property="og:description"
-      content="Film producer with Sundance and Berlinale credits who builds AI production systems."
-    />
+    <meta property="og:description" content="Film producer with Sundance and Berlinale credits who builds AI production systems." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://ai.drsfilms.com" />
-
     <script type="importmap" is:inline>
-      {
-        "imports": {
-          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-        }
-      }
+      { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/" } }
     </script>
   </Fragment>
-
   <Nav />
-
   <main>
     <Hero />
     <TrackRecord />
@@ -47,7 +33,7 @@ import Contact from '../components/Contact.astro';
     <EzOS />
     <Contact />
   </main>
-
   <script is:inline src="/upgrade-motion.js"></script>
   <script is:inline src="/interactions.js"></script>
+  <script is:inline src="/deep-interactions.js"></script>
 </Base>

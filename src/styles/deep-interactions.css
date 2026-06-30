@@ -1,0 +1,119 @@
+/* ============ DEEP INTERACTIONS — 5 layers ============ */
+
+/* 1. CUSTOM CURSOR */
+@media (pointer: fine) {
+  body.has-custom-cursor { cursor: none; }
+  body.has-custom-cursor a,
+  body.has-custom-cursor button,
+  body.has-custom-cursor [role="button"] { cursor: none; }
+}
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  border-radius: 50%;
+  will-change: transform;
+  transform: translate3d(-50%, -50%, 0);
+}
+.cursor-dot {
+  width: 6px; height: 6px;
+  background: #fff4dc;
+  transition: width 180ms ease, height 180ms ease, background 180ms ease;
+}
+.cursor-ring {
+  width: 28px; height: 28px;
+  border: 1px solid #e3a868;
+  background: transparent;
+  transition: width 220ms ease, height 220ms ease, background 220ms ease, border-color 220ms ease;
+}
+body.cursor-hover .cursor-dot { width: 10px; height: 10px; }
+body.cursor-hover .cursor-ring {
+  width: 40px; height: 40px;
+  background: rgba(227, 168, 104, 0.08);
+}
+body.cursor-drag .cursor-ring { transform: translate3d(-50%, -50%, 0) scale(1.3, 0.85); }
+
+/* 2. EZ-OS ANIMATED EDGES */
+.ezos__svg .edge {
+  stroke-dasharray: 4 8;
+  stroke-dashoffset: 0;
+  animation: flowEdge 2.4s linear infinite;
+}
+.ezos__svg .node:not(.node--hub) {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nodePulse 3s ease-in-out infinite alternate;
+}
+.ezos__svg .node--hub {
+  animation: hubGlow 4s ease-in-out infinite;
+}
+@keyframes flowEdge { to { stroke-dashoffset: -24; } }
+@keyframes nodePulse {
+  from { transform: scale(1); opacity: 0.7; }
+  to   { transform: scale(1.35); opacity: 1; }
+}
+@keyframes hubGlow {
+  0%, 100% { filter: drop-shadow(0 0 2px #e3a868); }
+  50%      { filter: drop-shadow(0 0 10px #e3a868); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ezos__svg .edge,
+  .ezos__svg .node,
+  .ezos__svg .node--hub { animation: none !important; }
+}
+
+/* 3. TOOLKIT LIGHTING */
+.stack__tool {
+  opacity: 0.45;
+  transition: opacity 200ms ease, color 200ms ease;
+}
+.stack__tool.lit {
+  opacity: 1;
+  color: var(--cream, #fff4dc);
+}
+.stack__sep {
+  opacity: 0.3;
+  transition: opacity 200ms ease;
+}
+.stack__sep.lit { opacity: 0.6; }
+
+/* 4. MAGNETIC CTA */
+.card__demo,
+.contact__link {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* 5. AI FILMS POSTER DRIFT */
+.aifilm__poster {
+  position: relative;
+  overflow: hidden;
+  transition: filter 200ms ease;
+}
+.aifilm__poster::after {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(227, 168, 104, 0.35) 0%,
+    rgba(110, 200, 220, 0.18) 45%,
+    transparent 75%
+  );
+  opacity: 0.3;
+  pointer-events: none;
+  transform-origin: center;
+  animation: posterDrift 8s ease-in-out infinite alternate;
+  will-change: transform;
+  mix-blend-mode: screen;
+}
+.aifilm:hover .aifilm__poster { filter: brightness(1.08); }
+@keyframes posterDrift {
+  from { transform: rotate(var(--angle, 0deg)); }
+  to   { transform: rotate(calc(var(--angle, 0deg) + 25deg)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aifilm__poster::after { animation: none !important; }
+}
