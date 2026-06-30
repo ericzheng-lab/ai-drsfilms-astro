@@ -1,0 +1,100 @@
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   COLOR PATCH v2 — warm/cool distinction fix
+   Root issue: --ink (#1a1f24) too close to --bg (#0c0a08).
+   New --ink (#0d1929) is visibly blue-navy, clearly distinct.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  --ink: #0d1929;           /* clear blue-navy dark — was #1a1f24 (too similar to bg) */
+  --cyan-glow: rgba(127, 181, 200, 0.22);
+}
+
+/* AI sections: more distinct background + cyan border-top as entry signal */
+section#built,
+section#stack,
+section#ez-os {
+  background-color: var(--ink) !important;
+  border-top: 2px solid rgba(127, 181, 200, 0.45);
+}
+
+/* Warm sections: ensure they stay warm (no bleed from AI sections) */
+section#track-record,
+section#ai-films,
+section#films,
+section#contact {
+  background-color: var(--bg) !important;
+  border-top: none;
+}
+
+/* Eyebrow in AI sections → cyan */
+section#built .eyebrow,
+section#stack .eyebrow,
+section#ez-os .eyebrow {
+  color: var(--cyan);
+  text-shadow: 0 0 18px rgba(127, 181, 200, 0.4);
+}
+
+/* Toolkit: make teal-smoke more visible */
+.stack__row {
+  border-top: 1px solid rgba(93, 138, 146, 0.55) !important;
+  border-bottom: none !important;
+}
+
+.stack__phase {
+  color: var(--cyan) !important;
+  letter-spacing: 0.08em;
+}
+
+/* Built section cards: cyan border + cool hover glow */
+section#built .card {
+  border: 1px solid rgba(93, 138, 146, 0.2);
+  background: rgba(13, 25, 41, 0.6);
+}
+
+section#built .card:hover {
+  border-color: rgba(127, 181, 200, 0.38);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 40px -16px rgba(127, 181, 200, 0.14);
+}
+
+/* AI Films section: amber underline draw matches section accent */
+section#ai-films .aifilm::after {
+  background: var(--amber);
+}
+
+/* EZ-OS node diagram: make hub + edges slightly cooler (ink env) */
+section#ez-os .ezos__svg .edge {
+  stroke: var(--cyan-deep);
+  opacity: 0.45;
+}
+
+section#ez-os .ezos__svg .node {
+  fill: var(--cyan);
+}
+
+/* Section ambient light: override warm glow with cool tint on AI sections */
+section#built::before,
+section#stack::before,
+section#ez-os::before {
+  background: radial-gradient(
+    ellipse 80% 40% at 50% 0%,
+    rgba(127, 181, 200, 0.05) 0%,
+    transparent 65%
+  ) !important;
+}
+
+/* Fix z-index: card content above ::before pseudo in color upgrade */
+section#built .card > *,
+section#stack .card > *,
+section#ez-os .card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Cursor halo: bump z-index above grain overlay */
+.cursor-halo {
+  z-index: 9998 !important;
+}
